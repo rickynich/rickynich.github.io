@@ -10,9 +10,9 @@ const Header = () => (
         <img src={avatar} alt="" />
       </a>
       <h1>
-        <strong>Nicholas Richard</strong>, a super simple
+        <strong>My name is Nicholas Richard</strong>
         <br />
-        responsive site template freebie
+        Welcome to my portfolio site
         <br />
         crafted by <a href="http://html5up.net">HTML5 UP</a>.
       </h1>
