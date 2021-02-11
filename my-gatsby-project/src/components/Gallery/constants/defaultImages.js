@@ -5,7 +5,7 @@ import full04 from '../../../assets/images/fulls/04.jpg'
 import full05 from '../../../assets/images/fulls/05.jpg'
 import full06 from '../../../assets/images/fulls/06.jpg'
 import thumb02 from '../../../assets/images/thumbs/02.jpg'
-import thumb01 from '../../../assets/images/thumbs/01.jpg'
+import hanziu from '../../../assets/images/thumbs/hanziu.jpg'
 import thumb03 from '../../../assets/images/thumbs/03.jpg'
 import thumb04 from '../../../assets/images/thumbs/04.jpg'
 import thumb05 from '../../../assets/images/thumbs/05.jpg'
@@ -16,9 +16,9 @@ export const DEFAULT_IMAGES = [
     {
       id: '1',
       source: full01,
-      thumbnail: thumb01,
-      caption: 'Photo 1',
-      description: 'Lorem ipsum dolor sit amet nisl sed nullam feugiat.',
+      thumbnail: hanziu,
+      caption: 'Hanzi U',
+      description: 'A strightforward Chinese character learning app.',
     },
     {
       id: '2',
