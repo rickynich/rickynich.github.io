@@ -29,6 +29,8 @@ export const DEFAULT_IMAGES = [
     caption: 'Catch Me If You Can',
     description:
       'A fun, competitive app that lets users create and keep track of exercise routes - wherever they are!',
+    live_link: 'https://hanzi-u-app.herokuapp.com/landing',
+    github: 'https://github.com/rickynich/Hanzi-U',
   },
   {
     id: '3',
@@ -36,6 +38,8 @@ export const DEFAULT_IMAGES = [
     thumbnail: thumb03,
     caption: 'Burn Reads',
     description: 'A good reads clone, only the opposite.',
+    live_link: 'https://hanzi-u-app.herokuapp.com/landing',
+    github: 'https://github.com/rickynich/Hanzi-U',
   },
   // {
   //   id: '4',

@@ -8,24 +8,20 @@ const GalleryItem = ({id, source, thumbnail, caption, description, live_link, gi
         toggleLightbox(position)
     }, [position, toggleLightbox]);
 
-    return (<article key={id} className="6u 12u$(xsmall) work-item">
-        <a
-        className="image fit thumb"
-        href={source}
-        onClick={onClick}
-        >
-        <img src={thumbnail} />
+    return (
+      <article key={id} className="6u 12u$(xsmall) work-item">
+        <a className="image fit thumb" href={source} onClick={onClick}>
+          <img src={thumbnail} />
         </a>
 
         <h3>{caption}</h3>
         <p>{description}</p>
-        <a href={live_link} >
-            <span>Live Link</span>
+        <a href={live_link}>Live Link {live_link}</a>
+        <a href={github}>
+          <span>GitHub</span>
         </a>
-        <a href={github} >
-            <span>GitHub</span>
-        </a>
-    </article>)
+      </article>
+    )
 };
 
 GalleryItem.displayName = 'GalleryItem'
