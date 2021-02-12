@@ -19,6 +19,12 @@ const GalleryItem = ({id, source, thumbnail, caption, description, position, tog
 
         <h3>{caption}</h3>
         <p>{description}</p>
+        <a href={live_link} >
+            <span>Live Link</span>
+        </a>
+        <a href={github} >
+            <span>GitHub</span>
+        </a>
     </article>)
 };
 
