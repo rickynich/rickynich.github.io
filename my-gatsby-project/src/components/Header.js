@@ -7,14 +7,14 @@ const Header = () => (
   <header id="header">
     <div className="inner">
       <a href="#" className="image avatar">
-        <img src={avatar} alt="" />
+        <img src={avatar} alt="avatar pic" />
       </a>
       <h1>
-        <strong>My name is Nicholas Richard</strong>
+        <strong>Nicholas Richard</strong>
         <br />
         Welcome to my portfolio site
         <br />
-        crafted by <a href="http://html5up.net">HTML5 UP</a>.
+        {/* crafted by <a href="http://html5up.net">HTML5 UP</a>. */}
       </h1>
     </div>
     <Footer />

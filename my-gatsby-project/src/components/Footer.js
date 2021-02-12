@@ -15,12 +15,23 @@ const Footer = () => (
           </a>
         </li>
         <li>
-          <a href="#" className="icon fa-dribbble">
-            <span className="label">Dribbble</span>
+          <a
+            href="https://www.linkedin.com/in/nicholas-richard-77a9a066/"
+            className="icon fa-linkedin"
+          >
+            <span className="label">LinkedIn</span>
           </a>
         </li>
         <li>
-          <a href="#" className="icon fa-envelope-o">
+          <a
+            href="https://angel.co/u/nicholas-richard"
+            className="icon fa-dribbble"
+          >
+            <span className="label">AngelList</span>
+          </a>
+        </li>
+        <li>
+          <a href={`mailto:nrich414@gmail.com`} className="icon fa-envelope-o">
             <span className="label">Email</span>
           </a>
         </li>

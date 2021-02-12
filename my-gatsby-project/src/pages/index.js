@@ -19,13 +19,13 @@ const HomeIndex = () => {
         <section id="one">
           <header className="major">
             <h2>
-              My name is Nicholas Richard
+              Hi I'm Nick,
               <br />
               a full-stack software developer and lifelong learner
             </h2>
           </header>
           <p>
-              Welcome to my portfolio page.
+              Welcome to my portfolio page. 
           </p>
           {/* <ul className="actions">
             <li>
