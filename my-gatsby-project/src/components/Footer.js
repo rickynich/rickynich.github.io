@@ -25,7 +25,7 @@ const Footer = () => (
         <li>
           <a
             href="https://angel.co/u/nicholas-richard"
-            className="icon fa-dribbble"
+            className="icon fa-angellist"
           >
             <span className="label">AngelList</span>
           </a>
