@@ -24,20 +24,22 @@ const Gallery = ({ images = DEFAULT_IMAGES }) => {
           caption={obj.caption}
           description={obj.description}
           position={obj.position}
-          toggleLightbox={obj.toggleLightbox}
+          live_link={obj.live_link}
+          github={obj.github}
+          // toggleLightbox={obj.toggleLightbox}
           position={i}
-          toggleLightbox={toggleLightbox}
-        />); 
+          // toggleLightbox={toggleLightbox}
+        />);
         })}
         </div>
       )}
-      <ModalGateway>
+      {/* <ModalGateway>
         {lightboxIsOpen && (
           <Modal onClose={toggleLightbox}>
             <Carousel currentIndex={selectedIndex} views={images} />
           </Modal>
         )}
-      </ModalGateway>
+      </ModalGateway> */}
     </div>
   )
 }
