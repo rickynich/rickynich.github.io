@@ -5,8 +5,8 @@ import Gallery from '../components/Gallery'
 import Layout from '../components/layout'
 
 const HomeIndex = () => {
-  const siteTitle = 'Gatsby Starter - Strata'
-  const siteDescription = 'Site description'
+  const siteTitle = "Nicholas Richard's portfolio sute"
+  const siteDescription = "A portfolio site to display some of Nick Richard's projects"
 
   return (
     <Layout>
@@ -19,21 +19,21 @@ const HomeIndex = () => {
         <section id="one">
           <header className="major">
             <h2>
-              Ipsum lorem dolor aliquam ante commodo
+              My name is Nicholas Richard
               <br />
-              magna sed accumsan arcu neque.
+              a full-stack software developer and lifelong learner
             </h2>
           </header>
           <p>
-              Welcome to my portfolio page. 
+              Welcome to my portfolio page.
           </p>
-          <ul className="actions">
+          {/* <ul className="actions">
             <li>
               <a href="#" className="button">
                 Learn More
               </a>
             </li>
-          </ul>
+          </ul> */}
         </section>
 
         <section id="two">
@@ -50,12 +50,12 @@ const HomeIndex = () => {
           </ul> */}
         </section>
 
-        <section id="three">
+        {/* <section id="three">
           <h2>Get In Touch</h2>
           <p>
-            {/* Accumsan pellentesque commodo blandit enim arcu non at amet id arcu
+            Accumsan pellentesque commodo blandit enim arcu non at amet id arcu
             magna. Accumsan orci faucibus id eu lorem semper nunc nisi lorem
-            vulputate lorem neque lorem ipsum dolor. */}
+            vulputate lorem neque lorem ipsum dolor.
           </p>
           <div className="row">
             <div className="8u 12u$(small)">
@@ -99,7 +99,7 @@ const HomeIndex = () => {
                   <h3 className="icon fa-home">
                     <span className="label">Address</span>
                   </h3>
-                  {/* 1234 Somewhere Rd. */}
+                  1234 Somewhere Rd.
                   <br />
                   Boston, MA
                   <br />
@@ -120,7 +120,7 @@ const HomeIndex = () => {
               </ul>
             </div>
           </div>
-        </section>
+        </section> */}
       </div>
     </Layout>
   )
