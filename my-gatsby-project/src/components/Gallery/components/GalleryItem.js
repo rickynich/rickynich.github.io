@@ -28,8 +28,8 @@ const GalleryItem = ({
       <img src={thumbnail} />
       <h3>{caption}</h3>
       <p>{description}</p>
-      <a href={live_link}>Live Link</a>
-      <a href={github}>{" "}GitHub</a>
+      <a href={live_link}>Live Link</a>{" "}
+      <a href={github}>GitHub</a>
     </article>
   )
 }
