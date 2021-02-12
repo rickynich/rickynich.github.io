@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 import PropTypes from 'prop-types'
 
-const GalleryItem = ({id, source, thumbnail, caption, description, position, toggleLightbox}) => {
+const GalleryItem = ({id, source, thumbnail, caption, description, live_link, github, position, toggleLightbox}) => {
 
     const onClick = useCallback((e) => {
         e.preventDefault()
