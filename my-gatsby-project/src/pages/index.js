@@ -21,11 +21,14 @@ const HomeIndex = () => {
             <h2>
               Hi I'm Nick,
               <br />
-              a full-stack software developer and lifelong learner
             </h2>
           </header>
           <p>
-              Welcome to my portfolio page. 
+            I'm a software developer who loves the process of forging the bridge
+            between conceptualization and a tangible, impactful product.
+            Programming is my outlet for my problem-solving and creative
+            expression, and I happily combine it with my strong desire of
+            exploring the unfamiliar.
           </p>
           {/* <ul className="actions">
             <li>
