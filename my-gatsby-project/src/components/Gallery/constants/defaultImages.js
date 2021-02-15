@@ -6,7 +6,7 @@ import full05 from '../../../assets/images/fulls/05.jpg'
 import full06 from '../../../assets/images/fulls/06.jpg'
 import routemap from '../../../assets/images/thumbs/routemap.jpg'
 import hanziu from '../../../assets/images/thumbs/hanziu.jpg'
-import thumb03 from '../../../assets/images/thumbs/03.jpg'
+import burnreads from '../../../assets/images/thumbs/burnreads.jpg'
 import thumb04 from '../../../assets/images/thumbs/04.jpg'
 import thumb05 from '../../../assets/images/thumbs/05.jpg'
 import thumb06 from '../../../assets/images/thumbs/06.jpg'
@@ -35,7 +35,7 @@ export const DEFAULT_IMAGES = [
   {
     id: '3',
     source: full03,
-    thumbnail: thumb03,
+    thumbnail: burnreads,
     caption: 'Burn Reads',
     description: 'A good reads clone, only the opposite.',
     live_link: '#',
