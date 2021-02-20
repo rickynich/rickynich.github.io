@@ -18,17 +18,20 @@ const HomeIndex = () => {
       <div id="main">
         <section id="one">
           <header className="major">
-            <h2>
+            <h2 style={{ color: 'black' }}>
               Hi I'm Nick,
               <br />
             </h2>
           </header>
           <p>
-            I'm a software developer who loves the process of forging the bridge
-            between conceptualization and a tangible, impactful product.
-            Programming is my outlet for my problem-solving and creative
-            expression, and I happily combine it with my strong desire of
-            exploring the unfamiliar.
+            a software developer who loves the process of forging the bridge
+            between conceptualization and a tangible product. Programming is my
+            outlet for my problem-solving and creative expression, and I happily
+            combine it with my strong desire of exploring the unfamiliar.
+            <br />I am always looking to improve myself and my code in other to
+            bring impactful, quality products and services to the world. Check
+            out my recent work below or reach out using any of the mediums
+            listed on the left!
           </p>
           {/* <ul className="actions">
             <li>
@@ -39,7 +42,7 @@ const HomeIndex = () => {
           </ul> */}
         </section>
 
-        <section id="two" >
+        <section id="two">
           <h2>Recent Work</h2>
 
           <Gallery />

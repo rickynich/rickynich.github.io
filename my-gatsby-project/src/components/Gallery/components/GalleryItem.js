@@ -20,9 +20,12 @@ const GalleryItem = ({
     [position, toggleLightbox]
   )
   const mystyle = {
-    width: "394px",
-    height: "440px"
+    // width: "394px",
+    // height: "440px"
     // CSS CODE
+    "font-weight": "bold",
+    color: "black",
+    "font-size": "20px"
   }
   return (
     <article key={id} className="6u 12u$(xsmall) work-item">
@@ -30,11 +33,15 @@ const GalleryItem = ({
         <img src={thumbnail} />
       </a> */}
       <img style={mystyle} src={thumbnail} />
-      <h3>{caption}</h3>
-      <p>{description}</p>
-      <a href={live_link}>Live Link</a>
+      <h3 style={mystyle}>{caption}</h3>
+      <p style={{"font-size": "16px"}}>{description}</p>
+      <a className="project-link" href={live_link}>
+        Live Link{' '}
+      </a>
       {'    '}
-      <a href={github}>GitHub</a>
+      <a className="project-link" href={github}>
+        GitHub
+      </a>
     </article>
   )
 }

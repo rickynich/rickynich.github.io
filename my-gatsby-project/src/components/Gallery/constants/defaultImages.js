@@ -27,7 +27,7 @@ export const DEFAULT_IMAGES = [
     source: full01,
     thumbnail: thumb01,
     caption: 'Hanzi U',
-    description: 'A strightforward Chinese character learning app.',
+    description: 'A straightforward Chinese character learning app.',
     live_link: 'https://hanzi-u-app.herokuapp.com/landing',
     github: 'https://github.com/rickynich/Hanzi-U',
   },
