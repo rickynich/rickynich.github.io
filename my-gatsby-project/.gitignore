@@ -4,6 +4,7 @@ node_modules
 yarn-error.log
 package-lock.json
 yarn.lock
+my-gatsby-project/src/assets/images/thumbs/01.JPG
 
 # Build directory
 /public

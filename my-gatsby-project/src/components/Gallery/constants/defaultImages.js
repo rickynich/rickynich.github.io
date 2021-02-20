@@ -7,13 +7,16 @@ import full06 from '../../../assets/images/fulls/06.jpg'
 // import routemap from '../../../assets/images/thumbs/routemap.JPG'
 // import hanziu from '../../../assets/images/thumbs/hanziu.JPG'
 // import burnreads from '../../../assets/images/thumbs/burnreads.JPG'
-import burn from '../../../assets/images/thumbs/burn.png'
-import thumb01 from '../../../assets/images/thumbs/01.jpg'
-import thumb02 from '/my-gatsby-project/src/assets/images/thumbs/02.JPG'
-// import thumb02 from './02.JPG'
-import thumb03 from '../../../assets/images/thumbs/03.jpg'
+// import burn from '../../../assets/images/thumbs/burn.png'
+import thumb01 from '../../../assets/images/thumbs/01.JPG'
+// import thumb02 from '/my-gatsby-project/src/assets/images/thumbs/02.JPG'
+import thumb02 from './02.jpg' //local folder test
+import thumb03 from './burn.PNG' //local folder test
+// import thumb03 from './burnreads.JPG' //local folder test
+import thumb05 from './05.jpg' //local folder test
+// import thumb03 from '../../../assets/images/thumbs/03.jpg'
 import thumb04 from '../../../assets/images/thumbs/04.jpg'
-import thumb05 from '../../../assets/images/thumbs/05.jpg'
+// import thumb05 from '../../../assets/images/thumbs/05.jpg'
 import thumb06 from '../../../assets/images/thumbs/06.jpg'
 
 
