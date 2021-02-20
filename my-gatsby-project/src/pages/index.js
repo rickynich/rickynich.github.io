@@ -39,7 +39,7 @@ const HomeIndex = () => {
           </ul> */}
         </section>
 
-        <section id="two">
+        <section id="two" >
           <h2>Recent Work</h2>
 
           <Gallery />

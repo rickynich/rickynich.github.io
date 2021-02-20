@@ -19,16 +19,21 @@ const GalleryItem = ({
     },
     [position, toggleLightbox]
   )
-
+  const mystyle = {
+    width: "394px",
+    height: "440px"
+    // CSS CODE
+  }
   return (
     <article key={id} className="6u 12u$(xsmall) work-item">
       {/* <a className="image fit thumb" href={source} onClick={onClick}>
         <img src={thumbnail} />
       </a> */}
-      <img src={thumbnail} />
+      <img style={mystyle} src={thumbnail} />
       <h3>{caption}</h3>
       <p>{description}</p>
-      <a href={live_link}>Live Link</a>{"    "}
+      <a href={live_link}>Live Link</a>
+      {'    '}
       <a href={github}>GitHub</a>
     </article>
   )
