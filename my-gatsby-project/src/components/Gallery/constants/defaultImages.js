@@ -47,7 +47,7 @@ export const DEFAULT_IMAGES = [
     thumbnail: thumb03,
     caption: 'Burn Reads',
     description: 'A good reads clone, only the opposite.',
-    live_link: '#',
+    live_link: 'https://burn-reads.herokuapp.com/',
     github: 'https://github.com/pgjessee/burn-reads',
   },
   // {

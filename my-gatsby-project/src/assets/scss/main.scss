@@ -992,7 +992,7 @@
 		max-width: 50em + $size-header-pad;
 		padding: ($size-header-pad * 2) $size-header-pad $size-header-pad $size-header-pad;
 		width: calc(100% - #{$size-header-width});
-
+		// background-color: black;
 		> section {
 			border-top: solid 2px _palette(border);
 			margin: $size-header-pad 0 0 0;
