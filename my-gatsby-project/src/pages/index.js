@@ -24,14 +24,20 @@ const HomeIndex = () => {
             </h2>
           </header>
           <p>
-            a software developer who loves the process of forging the bridge
-            between conceptualization and a tangible product. Programming is my
-            outlet for my problem-solving and creative expression, and I happily
-            combine it with my strong desire of exploring the unfamiliar.
-            <br />I am always looking to improve myself and my code in other to
-            bring impactful, quality products and services to the world. Check
-            out my recent work below or reach out using any of the mediums
-            listed on the left!
+            a software developer with a full-stack mindset who loves the process
+            of forging the bridge between conceptualization and a tangible,
+            impactful product. I am very comfortable when working within
+            individual components within a larger integrated architecture.{' '}
+            <br />
+            Programming is my outlet for my problem-solving and creative
+            expression, and I happily combine it with my strong desire of
+            exploring the unfamiliar and learning new technologies. <br />{' '}
+            Technical Competencies: <br />
+            -Languages and technologies: JavaScript, Python, HTML5, CSS3, SQL,
+            Flask, Docker <br />
+            -Frameworks: React.js, Redux <br /> -Methodologies: OOP, Test Driven
+            Development, Pair Programming, REST, AJAX <br /> -Version Control:
+            Git, GitHub
           </p>
           {/* <ul className="actions">
             <li>
