@@ -26,12 +26,11 @@ const HomeIndex = () => {
           <p>
             a software developer with a full-stack mindset who loves the process
             of forging the bridge between conceptualization and a tangible,
-            impactful product. I am very comfortable when working within
-            individual components within a larger integrated architecture.{' '}
+            impactful product. {' '}
             <br />
             Programming is my outlet for my problem-solving and creative
             expression, and I happily combine it with my strong desire of
-            exploring the unfamiliar and learning new technologies. <br />{' '}
+            exploring the unfamiliar and learning new technologies.<br />{' '}
             Technical Competencies: <br />
             -Languages and technologies: JavaScript, Python, HTML5, CSS3, SQL,
             Flask, Docker <br />
