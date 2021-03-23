@@ -18,25 +18,30 @@ const HomeIndex = () => {
       <div id="main">
         <section id="one">
           <header className="major">
-            <h2 style={{ color: 'black' }}>
+            <h3 style={{ color: 'black' }}>
               Hi I'm Nick,
               <br />
-            </h2>
+            </h3>
           </header>
           <p>
             a software developer with a full-stack mindset who loves the process
             of forging the bridge between conceptualization and a tangible,
-            impactful product. {' '}
-            <br />
-            Programming is my outlet for my problem-solving and creative
+            impactful product. Programming is my outlet for my problem-solving and creative
             expression, and I happily combine it with my strong desire of
-            exploring the unfamiliar and learning new technologies.<br />{' '}
-            Technical Competencies: <br />
+            exploring the unfamiliar and learning new technologies. Please feel
+            free to look at some of my work below, or contact me through your
+            preferred medium on the left.
+            <br /> <p></p>
+            <strong>
+              <u>Technical Competencies:</u>
+            </strong>{' '}
+            <br />
             -Languages and technologies: JavaScript, Python, HTML5, CSS3, SQL,
             Flask, Docker <br />
-            -Frameworks: React.js, Redux <br /> -Methodologies: OOP, Test Driven
-            Development, Pair Programming, REST, AJAX <br /> -Version Control:
-            Git, GitHub
+            -Frameworks: React.js, Redux <br />
+            -Component libraries: Chakra UI, Material UI<br />
+            -Methodologies: OOP, Test Driven Development, Pair Programming,
+            REST, AJAX <br /> -Version Control: Git, GitHub
           </p>
           {/* <ul className="actions">
             <li>
