@@ -1,0 +1,68 @@
+---
+import Seal from "./Seal.astro";
+import { PROFILE } from "../data/site";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="wrap foot">
+    <div class="who">
+      <Seal size={26} />
+      <span>&copy; {year} {PROFILE.name}</span>
+    </div>
+    <ul class="links">
+      <li><a href={PROFILE.github} rel="me">GitHub</a></li>
+      <li><a href={PROFILE.linkedin} rel="me">LinkedIn</a></li>
+      <li><a href={`mailto:${PROFILE.email}`}>Email</a></li>
+    </ul>
+    <p class="made">
+      Built with <a href="https://astro.build">Astro</a>. <a href="https://github.com/rickynich/rickynich.github.io">Source</a>
+    </p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--line);
+    padding-block: 2rem 2.5rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  .foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem 2rem;
+  }
+
+  .who {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .links {
+    display: flex;
+    gap: 1.25rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  a {
+    color: var(--ink-2);
+    text-decoration-color: var(--line-strong);
+    text-underline-offset: 3px;
+  }
+
+  a:hover {
+    color: var(--ink);
+    text-decoration-color: currentColor;
+  }
+
+  .links a {
+    text-decoration: none;
+  }
+</style>

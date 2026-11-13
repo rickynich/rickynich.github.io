@@ -1,0 +1,1011 @@
+---
+import { Image } from "astro:assets";
+import Base from "../../layouts/Base.astro";
+import og from "../../assets/hanzi-rivals/og.png";
+import { HANZI_RIVALS, PROFILE } from "../../data/site";
+import { SHOTS, type Shot } from "../../data/shots";
+
+const loop: { step: string; title: string; body: string; shot: Shot }[] = [
+  {
+    step: "01",
+    title: "Pick an attack",
+    body: "Choose how hard to hit, then answer a question to charge it.",
+    shot: SHOTS.attack,
+  },
+  {
+    step: "02",
+    title: "Charge it, send it",
+    body: "A perfect answer charges full power. The turn goes out as a link or a text.",
+    shot: SHOTS.send,
+  },
+  {
+    step: "03",
+    title: "Your friend blocks",
+    body: "They defend with the same skill, then counterattack and send it back.",
+    shot: SHOTS.defend,
+  },
+];
+
+const attacks = [
+  { name: "Light Attack", skill: "Pick the meaning", power: "12" },
+  { name: "Heavy Attack", skill: "Type the pinyin", power: "20" },
+  { name: "Dragon Strike", skill: "Write the characters", power: "30" },
+  { name: "Wild Strike", skill: "A random attack at a random difficulty, +35%", power: "12–53" },
+];
+
+const modes = [
+  {
+    name: "Duels",
+    hz: "对决",
+    body: "Against a friend by link, or against the computer: Rookie, Scholar or Grandmaster, who play by the same rules and favor the attacks they're good at.",
+  },
+  {
+    name: "Daily",
+    hz: "每日一练",
+    body: "Eight questions a day, the same for everyone, climbing from HSK 1 to HSK 4. Streaks, a shareable result grid and a weekly board among friends.",
+  },
+  {
+    name: "Word chain",
+    hz: "词语接龙",
+    body: "Take turns adding a word that starts where the last one ended: 学生 → 生日 → 日子. Same character or same sound both count.",
+  },
+];
+
+const notes = [
+  {
+    title: "Forgiving handwriting, without OCR",
+    body: "Each stroke you draw is matched to the closest stroke still to be written, in any order or direction, against the character's stroke data. A bent stroke can be two lines, a small or off-center character still counts, and after three misses the next stroke is drawn for you. Writing in the standard order earns a bonus rather than being required.",
+  },
+  {
+    title: "Look-alike characters from geometry",
+    body: "Sprint boards need convincing decoys. Each character's stroke skeleton is drawn on a 32×32 grid and compared with others by chamfer distance: how far each line of one sits from the nearest line of the other. A short hand-picked list adds classic pairs the shapes miss, like 买 / 卖.",
+  },
+  {
+    title: "The server keeps score",
+    body: "A sprint's 60 boards and a climb's 20 steps are generated once on the server and stored. Every reported run is re-scored from its taps with the same rules the device used, and climbs are checked step by step: in order, no more wrong taps than hearts, no step over a minute.",
+  },
+  {
+    title: "One client, three surfaces",
+    body: "The same React client runs on the web, inside a Capacitor iPhone app, and in a Swift iMessage extension. The web signs in with a cookie and the app with a bearer token, and the app and its iMessage extension share one sign-in through an App Group.",
+  },
+  {
+    title: "A dictionary that searches as you type",
+    body: "All of CC-CEDICT, about 124,000 entries, searchable in pinyin with or without tones (even half-typed), English or characters. Results rank by HSK level and real-world word frequency, and crude senses are filtered out by default.",
+  },
+  {
+    title: "Every sound is synthesized",
+    body: "There are no audio files. A guzheng plays shuffled phrases on the D pentatonic scale, the brush-on-paper sound follows your pen speed, and a gong lands for a Dragon Strike, all built with the Web Audio API.",
+  },
+  {
+    title: "XP as an idempotent ledger",
+    body: "Experience is stored as a ledger keyed by what earned it, so a retried request can never pay out twice, and the server refuses fighter colors that haven't been unlocked yet.",
+  },
+  {
+    title: "A marketing site from the game's own code",
+    body: "hanzirivals.com is prerendered to static HTML from React components. Its try-a-round demo imports the real game rules and pinyin grader, so the website can't drift from the game.",
+  },
+];
+
+const stack = [
+  { label: "Client", value: "TypeScript, React 19, Vite" },
+  { label: "Server", value: "Node, Express 5, node:sqlite (Node's built-in SQLite)" },
+  { label: "iOS", value: "Capacitor 8, Swift with the Messages framework" },
+  { label: "Data", value: "CC-CEDICT, HSK 1–6 word lists, wordfreq, Hanzi Writer stroke data, pinyin-pro" },
+  { label: "Hosting", value: "Docker on Fly.io: one always-on machine, SQLite on a volume" },
+  { label: "Quality", value: "114 server tests with node:test, strict TypeScript throughout" },
+];
+
+const gallery = [SHOTS.pick, SHOTS.list, SHOTS.deck, SHOTS.dictionary, SHOTS.climb];
+---
+
+<Base
+  title={`${HANZI_RIVALS.name}: case study · ${PROFILE.name}`}
+  description="How Nick Richard designed and built Hanzi Rivals, a turn-based Chinese vocab game for friends, on the web, iPhone and iMessage."
+  image={og.src}
+  imageAlt="Hanzi Rivals: learn Chinese together. Two pixel-art fighters in front of a red sun."
+>
+  <article>
+    <!-- Title -->
+    <header class="cs-hero wrap">
+      <a class="back" href="/#work"><span aria-hidden="true">←</span> All work</a>
+      <p class="eyebrow">Case study · {HANZI_RIVALS.year}</p>
+      <h1>{HANZI_RIVALS.name}</h1>
+      <p class="deck">{HANZI_RIVALS.tagline}</p>
+      <div class="btn-row">
+        <a class="btn btn-seal" href={HANZI_RIVALS.url}>Play at {HANZI_RIVALS.domain} <span class="arrow arrow-out" aria-hidden="true">↗</span></a>
+        <a class="btn btn-quiet" href="#engineering">Skip to the engineering</a>
+      </div>
+
+      <dl class="meta">
+        <div>
+          <dt>Role</dt>
+          <dd>Solo: product, design, engineering and art</dd>
+        </div>
+        <div>
+          <dt>Platforms</dt>
+          <dd>Web app, iPhone app, iMessage game</dd>
+        </div>
+        <div>
+          <dt>Built with</dt>
+          <dd>TypeScript, React, Express, SQLite, Capacitor, Swift</dd>
+        </div>
+        <div>
+          <dt>Status</dt>
+          <dd>Live at <a href={HANZI_RIVALS.url}>{HANZI_RIVALS.domain}</a></dd>
+        </div>
+      </dl>
+    </header>
+
+    <!-- The loop -->
+    <section class="night loop" aria-labelledby="loop-title">
+      <div class="wrap">
+        <h2 id="loop-title" class="visually-hidden">The turn loop</h2>
+        <ol class="loop-steps">
+          {
+            loop.map(({ step, title, body, shot }, i) => (
+              <li>
+                <div class="phone">
+                  <Image
+                    src={shot.src}
+                    alt={shot.alt}
+                    widths={[260, 390, 520]}
+                    sizes="(max-width: 760px) 62vw, 260px"
+                    loading={i === 0 ? "eager" : "lazy"}
+                  />
+                </div>
+                <div class="loop-text">
+                  <span class="loop-num">{step}</span>
+                  <h3>{title}</h3>
+                  <p>{body}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </section>
+
+    <!-- The question -->
+    <section class="section wrap question" aria-labelledby="q-title">
+      <div class="q-main">
+        <p class="eyebrow">The question</p>
+        <h2 id="q-title">Will two classmates keep sending turns back and forth with their own vocab list?</h2>
+        <p class="lead">
+          Flashcards are easy to put off. A friend waiting on your move is much harder to ignore. Hanzi Rivals started as a test
+          of that one idea, so every decision is there to keep the turns coming back.
+        </p>
+        <ul class="reasons">
+          <li>
+            <b>Turns are links.</b> Your friend opens one in a browser: no install, no account, nothing in the way of their first move.
+          </li>
+          <li>
+            <b>Each player brings their own list.</b> Questions come from each player's weakest words, so someone on HSK 1 and a fluent
+            friend on HSK 6 still get a fair match.
+          </li>
+          <li>
+            <b>Waiting is studying.</b> Training between turns earns Focus, a boost for your next attack. That's where most of the
+            study actually happens.
+          </li>
+          <li><b>Every duel ends with a study list</b> of the words you missed, ready before the rematch.</li>
+        </ul>
+      </div>
+      <aside class="q-aside" aria-labelledby="metrics-title">
+        <h3 id="metrics-title">Measured, not guessed</h3>
+        <p>The server has its own metrics page, built around the question:</p>
+        <ul>
+          <li>Invites accepted</li>
+          <li><b>Turns returned</b>, the core reciprocity number</li>
+          <li>Median reply time</li>
+          <li>Duels finished and rematch rate</li>
+          <li>Pairs where <b>both</b> people have sent a challenge</li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- How a duel works -->
+    <section class="section duel" aria-labelledby="duel-title">
+      <div class="wrap duel-grid">
+        <div class="section-head">
+          <p class="eyebrow">How a duel works</p>
+          <h2 id="duel-title">Every attack is a question. So is every block.</h2>
+          <p>
+            Each player gets eight attacks; the duel ends at 0 HP or when both are spent, and most HP wins. A perfect answer charges
+            full power, a close one 70%, and a miss fizzles. On defense, a perfect block takes only 30% of the hit and earns a
+            Riposte, +20% on the counter.
+          </p>
+        </div>
+
+        <div class="attacks-wrap">
+          <table class="attacks">
+            <caption class="visually-hidden">Attacks and their power</caption>
+            <thead>
+              <tr>
+                <th scope="col">Attack</th>
+                <th scope="col">You have to</th>
+                <th scope="col" class="num">Power</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                attacks.map((a) => (
+                  <tr>
+                    <th scope="row">{a.name}</th>
+                    <td>{a.skill}</td>
+                    <td class="num">{a.power}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+          <p class="fine">
+            Pinyin is graded kindly: each wrong tone costs 20% of the power but never more than half, and spoken third-tone changes
+            count as right, so <span lang="zh-Latn-pinyin">níhǎo</span> is fine for 你好.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modes -->
+    <section class="section wrap modes" aria-labelledby="modes-title">
+      <div class="section-head">
+        <p class="eyebrow">Game modes</p>
+        <h2 id="modes-title">Five ways to play</h2>
+      </div>
+
+      <div class="mode-features">
+        <article class="mode-feature">
+          <div class="phone">
+            <Image src={SHOTS.sprint.src} alt={SHOTS.sprint.alt} widths={[240, 360, 480]} sizes="200px" />
+          </div>
+          <div class="mode-text">
+            <p class="mode-hz hz" lang="zh-Hans">眼疾手快</p>
+            <h3>Character Sprint</h3>
+            <p>
+              Sixty seconds to hear a word and tap its characters on a board of look-alikes: 已 / 己, 未 / 末, 晴 / 睛. Boards grow from
+              6 to 12 tiles across five levels. Send the link and friends race the exact same boards.
+            </p>
+          </div>
+        </article>
+        <article class="mode-feature">
+          <div class="phone">
+            <Image src={SHOTS.climb.src} alt={SHOTS.climb.alt} widths={[240, 360, 480]} sizes="200px" />
+          </div>
+          <div class="mode-text">
+            <p class="mode-hz hz" lang="zh-Hans">步步高升</p>
+            <h3>Character Climb</h3>
+            <p>
+              A 20-step climb for a whole group chat, played on your own time with three hearts. You climb beside the ghosts of everyone
+              who went before you, replaying their real climbs on the same clock, and the last climber gets the podium.
+            </p>
+          </div>
+        </article>
+      </div>
+
+      <ul class="mode-cards">
+        {
+          modes.map((mode) => (
+            <li>
+              <p class="mode-hz hz" lang="zh-Hans">
+                {mode.hz}
+              </p>
+              <h3>{mode.name}</h3>
+              <p>{mode.body}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <!-- iMessage -->
+    <section class="night section messages" aria-labelledby="msg-title">
+      <div class="wrap msg-grid">
+        <div class="msg-copy">
+          <p class="eyebrow">On iPhone</p>
+          <h2 id="msg-title">Played right inside Messages</h2>
+          <p class="lead">
+            Hanzi Rivals is also an iMessage app. Play your turn and it lands in the chat as a bubble with both fighters, their HP
+            and what's coming next. Each game keeps a single bubble that updates every turn.
+          </p>
+          <p>
+            In a group chat, a Climb's bubble shows everyone's ladder and how many are left to play, then turns into the podium. The
+            extension is a Swift <code>MessagesViewController</code> that loads the same game screens from the server and shares the
+            iPhone app's sign-in.
+          </p>
+        </div>
+        <div class="bubbles">
+          <figure class="bubble one">
+            <Image src={SHOTS.bubbleDuel.src} alt={SHOTS.bubbleDuel.alt} widths={[360, 600]} sizes="(max-width: 860px) 80vw, 340px" />
+          </figure>
+          <figure class="bubble two">
+            <Image src={SHOTS.bubbleClimb.src} alt={SHOTS.bubbleClimb.alt} widths={[360, 600]} sizes="(max-width: 860px) 80vw, 340px" />
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Engineering -->
+    <section id="engineering" class="section wrap engineering" aria-labelledby="eng-title">
+      <div class="section-head">
+        <p class="eyebrow">Engineering notes</p>
+        <h2 id="eng-title">The parts that were fun to solve</h2>
+      </div>
+      <ol class="notes">
+        {
+          notes.map((note, i) => (
+            <li>
+              <span class="note-num">{String(i + 1).padStart(2, "0")}</span>
+              <h3>{note.title}</h3>
+              <p>{note.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <!-- Stack + gallery -->
+    <section class="section stack-section" aria-labelledby="stack-title">
+      <div class="wrap stack-grid">
+        <div>
+          <p class="eyebrow">Stack</p>
+          <h2 id="stack-title">What it runs on</h2>
+        </div>
+        <dl class="stack">
+          {
+            stack.map(({ label, value }) => (
+              <div>
+                <dt>{label}</dt>
+                <dd>{value}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+
+      <div class="wrap">
+        <h3 class="gallery-title">More screens</h3>
+      </div>
+      <ul class="gallery" aria-label="More screenshots">
+        {
+          gallery.map((shot) => (
+            <li>
+              <figure>
+                <div class="phone">
+                  <Image src={shot.src} alt={shot.alt} widths={[220, 330, 440]} sizes="220px" />
+                </div>
+                {shot.caption && <figcaption>{shot.caption}</figcaption>}
+              </figure>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <!-- CTA -->
+    <section class="section wrap cta" aria-labelledby="cta-title">
+      <h2 id="cta-title">Try a round. <em>It takes about 30 seconds.</em></h2>
+      <p class="lead">No sign-up, nothing to install. Just you, a fox named Ana, and a few words of Chinese.</p>
+      <div class="btn-row">
+        <a class="btn btn-seal" href={HANZI_RIVALS.url}>Play at {HANZI_RIVALS.domain} <span class="arrow arrow-out" aria-hidden="true">↗</span></a>
+        <a class="btn btn-quiet" href="/#contact">Get in touch</a>
+      </div>
+    </section>
+  </article>
+</Base>
+
+<style>
+  /* ---------- Title ---------- */
+
+  .cs-hero {
+    display: grid;
+    justify-items: start;
+    gap: 1.4rem;
+    padding-block: clamp(2rem, 5vw, 3.5rem) clamp(3rem, 7vw, 5rem);
+  }
+
+  .back {
+    margin-bottom: clamp(1rem, 4vw, 2.5rem);
+    color: var(--ink-2);
+    font-size: 0.95rem;
+    text-decoration: none;
+  }
+
+  .back:hover {
+    color: var(--seal);
+  }
+
+  h1 {
+    font-size: clamp(3.5rem, 11vw, 8.5rem);
+    line-height: 0.92;
+  }
+
+  .deck {
+    max-width: 30ch;
+    font-family: var(--serif);
+    font-size: clamp(1.6rem, 3.4vw, 2.4rem);
+    line-height: 1.15;
+    color: var(--ink-2);
+    text-wrap: balance;
+  }
+
+  .meta {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+    margin: clamp(1rem, 4vw, 2rem) 0 0;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .meta dt {
+    margin-bottom: 0.35rem;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .meta dd {
+    margin: 0;
+    font-size: 0.975rem;
+    line-height: 1.45;
+  }
+
+  .meta a {
+    text-decoration-color: var(--seal);
+    text-underline-offset: 3px;
+  }
+
+  /* ---------- Loop ---------- */
+
+  .loop {
+    padding-block: clamp(3.5rem, 8vw, 6rem);
+  }
+
+  .loop-steps {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1.5rem, 4vw, 3.5rem);
+    padding: 0;
+    list-style: none;
+  }
+
+  .loop-steps li {
+    display: grid;
+    gap: 1.5rem;
+    align-content: start;
+  }
+
+  .loop-steps .phone {
+    width: min(100%, 270px);
+    margin-inline: auto;
+  }
+
+  .loop-text {
+    display: grid;
+    gap: 0.4rem;
+    max-width: 22rem;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .loop-num {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--seal);
+    letter-spacing: 0.1em;
+  }
+
+  .loop-text h3 {
+    font-family: var(--serif);
+    font-size: 1.85rem;
+    font-weight: 400;
+  }
+
+  .loop-text p {
+    color: var(--ink-2);
+  }
+
+  /* ---------- Question ---------- */
+
+  .question {
+    display: grid;
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+    gap: clamp(2.5rem, 6vw, 5rem);
+    align-items: start;
+  }
+
+  .q-main {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .q-main h2 {
+    font-size: clamp(2.25rem, 4.6vw, 3.6rem);
+    line-height: 1.04;
+  }
+
+  .reasons {
+    display: grid;
+    gap: 1rem;
+    padding: 0;
+    list-style: none;
+    color: var(--ink-2);
+  }
+
+  .reasons li {
+    padding-left: 1.25rem;
+    border-left: 2px solid var(--line-strong);
+  }
+
+  .reasons b {
+    color: var(--ink);
+  }
+
+  .q-aside {
+    position: sticky;
+    top: 6rem;
+    display: grid;
+    gap: 0.9rem;
+    padding: 1.6rem;
+    border: 1px solid var(--line);
+    border-radius: calc(var(--radius) + 4px);
+    background: var(--card);
+    box-shadow: var(--shadow);
+  }
+
+  .q-aside h3 {
+    font-family: var(--serif);
+    font-size: 1.75rem;
+    font-weight: 400;
+  }
+
+  .q-aside p {
+    color: var(--ink-2);
+    font-size: 0.975rem;
+  }
+
+  .q-aside ul {
+    display: grid;
+    gap: 0.5rem;
+    padding: 0;
+    list-style: none;
+    font-size: 0.975rem;
+  }
+
+  .q-aside li {
+    padding: 0.55rem 0.75rem;
+    border-radius: 8px;
+    background: var(--paper-2);
+  }
+
+  /* ---------- Duel ---------- */
+
+  .duel {
+    background: var(--paper-2);
+    border-block: 1px solid var(--line);
+  }
+
+  .duel-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(2rem, 6vw, 5rem);
+    align-items: center;
+  }
+
+  .duel-grid .section-head {
+    margin-bottom: 0;
+  }
+
+  .attacks-wrap {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .attacks {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid var(--line);
+    border-radius: calc(var(--radius) + 2px);
+    background: var(--card);
+    overflow: hidden;
+    font-size: 0.975rem;
+  }
+
+  .attacks th,
+  .attacks td {
+    padding: 0.9rem 1.1rem;
+    border-bottom: 1px solid var(--line);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .attacks tbody tr:last-child > * {
+    border-bottom: 0;
+  }
+
+  .attacks thead th {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: color-mix(in srgb, var(--paper-2) 50%, var(--card));
+  }
+
+  .attacks tbody th {
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .attacks td {
+    color: var(--ink-2);
+  }
+
+  .attacks .num {
+    text-align: right;
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .attacks td.num {
+    color: var(--seal);
+    font-weight: 500;
+  }
+
+  .fine {
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  /* ---------- Modes ---------- */
+
+  .mode-features {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1rem, 2.5vw, 1.75rem);
+    margin-bottom: clamp(1rem, 2.5vw, 1.75rem);
+  }
+
+  .mode-feature {
+    display: grid;
+    grid-template-columns: minmax(0, 170px) minmax(0, 1fr);
+    gap: clamp(1.25rem, 3vw, 2rem);
+    align-items: center;
+    padding: clamp(1.25rem, 3vw, 2rem);
+    border: 1px solid var(--line);
+    border-radius: calc(var(--radius) + 6px);
+    background: var(--card);
+  }
+
+  .mode-text,
+  .mode-cards li {
+    display: grid;
+    gap: 0.55rem;
+    align-content: start;
+  }
+
+  .mode-hz {
+    color: var(--seal);
+    font-size: 1.5rem;
+    line-height: 1.2;
+    letter-spacing: 0.08em;
+  }
+
+  .modes h3 {
+    font-family: var(--serif);
+    font-size: 1.9rem;
+    font-weight: 400;
+  }
+
+  .modes p:not(.mode-hz) {
+    color: var(--ink-2);
+    font-size: 0.975rem;
+  }
+
+  .mode-cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1rem, 2.5vw, 1.75rem);
+    padding: 0;
+    list-style: none;
+  }
+
+  .mode-cards li {
+    padding: clamp(1.25rem, 3vw, 1.75rem);
+    border: 1px solid var(--line);
+    border-radius: calc(var(--radius) + 6px);
+    background: var(--card);
+  }
+
+  /* ---------- Messages ---------- */
+
+  .msg-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(2.5rem, 6vw, 5rem);
+    align-items: center;
+  }
+
+  .msg-copy {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .msg-copy h2 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .msg-copy > p:last-child {
+    color: var(--ink-2);
+  }
+
+  code {
+    font-family: var(--mono);
+    font-size: 0.85em;
+    padding: 0.1em 0.35em;
+    border-radius: 5px;
+    background: var(--night-2);
+    color: var(--ink);
+  }
+
+  .bubbles {
+    position: relative;
+    display: grid;
+    gap: 1.25rem;
+    max-width: 440px;
+    width: 100%;
+    margin-inline: auto;
+  }
+
+  .bubble img {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 24px 50px -20px rgb(0 0 0 / 70%);
+  }
+
+  .bubble.one {
+    width: 86%;
+    rotate: -2deg;
+  }
+
+  .bubble.two {
+    width: 86%;
+    justify-self: end;
+    rotate: 2deg;
+    margin-top: -2.5rem;
+  }
+
+  /* ---------- Engineering ---------- */
+
+  .notes {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 clamp(2rem, 5vw, 4rem);
+    padding: 0;
+    list-style: none;
+    counter-reset: note;
+  }
+
+  .notes li {
+    display: grid;
+    grid-template-columns: 2.75rem minmax(0, 1fr);
+    align-content: start;
+    gap: 0.4rem 0.75rem;
+    padding-block: 1.75rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .note-num {
+    grid-row: span 2;
+    padding-top: 0.2rem;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--seal);
+  }
+
+  .notes h3 {
+    font-size: 1.15rem;
+  }
+
+  .notes p {
+    color: var(--ink-2);
+    font-size: 0.99rem;
+  }
+
+  /* ---------- Stack + gallery ---------- */
+
+  .stack-section {
+    background: var(--paper-2);
+    border-block: 1px solid var(--line);
+  }
+
+  .stack-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr);
+    gap: clamp(2rem, 6vw, 5rem);
+    margin-bottom: clamp(3.5rem, 8vw, 6rem);
+  }
+
+  .stack-grid h2 {
+    margin-top: 1rem;
+    font-size: clamp(2.5rem, 5vw, 3.75rem);
+  }
+
+  .stack {
+    display: grid;
+    margin: 0;
+  }
+
+  .stack > div {
+    display: grid;
+    grid-template-columns: 6.5rem minmax(0, 1fr);
+    gap: 1rem;
+    padding-block: 0.95rem;
+    border-bottom: 1px solid var(--line-strong);
+  }
+
+  .stack > div:first-child {
+    border-top: 1px solid var(--line-strong);
+  }
+
+  .stack dt {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-top: 0.2rem;
+  }
+
+  .stack dd {
+    margin: 0;
+  }
+
+  .gallery-title {
+    margin-bottom: 1.5rem;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .gallery {
+    display: flex;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0.5rem max(var(--gutter), calc((100vw - var(--wrap)) / 2)) 2rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: max(var(--gutter), calc((100vw - var(--wrap)) / 2));
+    list-style: none;
+    scrollbar-width: thin;
+    scrollbar-color: var(--line-strong) transparent;
+  }
+
+  .gallery li {
+    flex: 0 0 220px;
+    scroll-snap-align: start;
+  }
+
+  .gallery figure {
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .gallery figcaption {
+    text-align: center;
+    color: var(--ink-2);
+    font-size: 0.9rem;
+  }
+
+  /* ---------- CTA ---------- */
+
+  .cta {
+    display: grid;
+    justify-items: center;
+    gap: 1.5rem;
+    text-align: center;
+  }
+
+  .cta h2 {
+    font-size: clamp(2.5rem, 6vw, 4.75rem);
+    max-width: 16ch;
+  }
+
+  .cta h2 em {
+    color: var(--seal);
+  }
+
+  .cta .btn-row {
+    justify-content: center;
+  }
+
+  /* ---------- Responsive ---------- */
+
+  @media (max-width: 960px) {
+    .meta {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .mode-features {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .mode-cards {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  @media (max-width: 860px) {
+    .question,
+    .duel-grid,
+    .msg-grid,
+    .stack-grid,
+    .notes {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .q-aside {
+      position: static;
+    }
+
+    .loop-steps {
+      display: flex;
+      gap: 1.25rem;
+      margin-inline: calc(var(--gutter) * -1);
+      padding-inline: var(--gutter);
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-padding-inline: var(--gutter);
+      scrollbar-width: none;
+    }
+
+    .loop-steps li {
+      flex: 0 0 min(68vw, 270px);
+      scroll-snap-align: start;
+    }
+
+    .loop-text {
+      text-align: left;
+      margin-inline: 0;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .meta {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 1rem;
+    }
+
+    .mode-feature {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .mode-feature .phone {
+      width: 60%;
+      max-width: 200px;
+    }
+
+    .stack > div {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.2rem;
+    }
+
+    .attacks th,
+    .attacks td {
+      padding: 0.75rem 0.8rem;
+    }
+
+    .attacks tbody th {
+      white-space: normal;
+    }
+  }
+</style>

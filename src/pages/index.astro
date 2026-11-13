@@ -1,0 +1,645 @@
+---
+import { Image } from "astro:assets";
+import Base from "../layouts/Base.astro";
+import PhoneStack from "../components/PhoneStack.astro";
+import headshot from "../assets/headshot.png";
+import { EARLIER, HANZI_RIVALS, PROFILE, TOOLBOX } from "../data/site";
+import { SHOTS } from "../data/shots";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: PROFILE.fullName,
+  alternateName: PROFILE.name,
+  jobTitle: PROFILE.role,
+  url: Astro.site?.href,
+  sameAs: [PROFILE.github, PROFILE.linkedin, HANZI_RIVALS.url],
+};
+---
+
+<Base title={`${PROFILE.name}, ${PROFILE.role.toLowerCase()}`} description={PROFILE.description} jsonLd={jsonLd}>
+  <!-- Hero -->
+  <section class="hero wrap" aria-labelledby="hero-title">
+    <div class="hero-copy">
+      <p class="eyebrow">{PROFILE.name} · {PROFILE.role}</p>
+      <h1 id="hero-title">I build whole products, <em>from the server to the pixel art.</em></h1>
+      <p class="lead">
+        Right now that's <a href="/work/hanzi-rivals/">Hanzi Rivals</a>, a Chinese vocab game you play with friends over text.
+        I designed it, wrote the server and the apps, drew the fighters, and built it for the web, iPhone and iMessage.
+      </p>
+      <div class="btn-row">
+        <a class="btn btn-seal" href="/work/hanzi-rivals/">Read the case study <span class="arrow" aria-hidden="true">→</span></a>
+        <a class="btn btn-quiet" href="#contact">Get in touch</a>
+      </div>
+    </div>
+
+    <a class="now" href={HANZI_RIVALS.url} aria-label={`Now building: ${HANZI_RIVALS.name}, live at ${HANZI_RIVALS.domain}`}>
+      <span class="now-label"><span class="pulse" aria-hidden="true"></span>Now building</span>
+      <Image
+        src={SHOTS.bubbleDuel.src}
+        alt=""
+        widths={[400, 600]}
+        sizes="(max-width: 860px) 90vw, 360px"
+        loading="eager"
+        fetchpriority="high"
+      />
+      <span class="now-foot">
+        <span><b>{HANZI_RIVALS.name}</b><br />Live at {HANZI_RIVALS.domain}</span>
+        <span class="arrow-out" aria-hidden="true">↗</span>
+      </span>
+    </a>
+  </section>
+
+  <!-- Featured work -->
+  <section id="work" class="night section feature-band" aria-labelledby="hr-title">
+    <div class="wrap feature">
+      <div class="feature-copy">
+        <p class="eyebrow">Featured · {HANZI_RIVALS.year} · Live</p>
+        <h2 id="hr-title">{HANZI_RIVALS.name} <span class="hz" lang="zh-Hans">汉字</span></h2>
+        <p class="lead">
+          Paste the words you're studying, send a friend a link, and take turns attacking and blocking with meanings, pinyin and
+          handwriting. Your friend doesn't install anything, and you both practice on every move.
+        </p>
+
+        <ul class="highlights">
+          <li><b>Five ways to play.</b> Duels, a 60-second sprint, a group climb, a daily set and word chain.</li>
+          <li><b>Handwriting, graded by stroke.</b> Matched against stroke data, not OCR, and forgiving about order.</li>
+          <li><b>A 124,000-entry dictionary</b> that searches as you type in pinyin, English or characters.</li>
+          <li><b>Three surfaces, one client.</b> A web app, an iPhone app and an iMessage game, all solo.</li>
+        </ul>
+
+        <div class="btn-row">
+          <a class="btn btn-seal" href="/work/hanzi-rivals/">Read the case study <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="btn btn-quiet" href={HANZI_RIVALS.url}>Visit {HANZI_RIVALS.domain} <span class="arrow arrow-out" aria-hidden="true">↗</span></a>
+        </div>
+
+        <ul class="chips" aria-label="Built with">
+          {HANZI_RIVALS.stack.map((tech) => <li>{tech}</li>)}
+        </ul>
+      </div>
+
+      <div class="feature-art">
+        <PhoneStack shots={[SHOTS.send, SHOTS.attack, SHOTS.sprint]} />
+      </div>
+    </div>
+  </section>
+
+  <!-- Earlier work -->
+  <section id="earlier" class="section" aria-labelledby="earlier-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Earlier work · 2021</p>
+        <h2 id="earlier-title">Where it started</h2>
+        <p>
+          Full-stack apps from 2021, two of them built with a team. Their demos ran on Heroku's free tier, which ended in 2022,
+          so these link to the source.
+        </p>
+      </div>
+
+      <ul class="cards">
+        {
+          EARLIER.map((project) => (
+            <li class="card">
+              <div class="card-img">
+                <Image src={project.image} alt={project.imageAlt} widths={[400, 600]} sizes="(max-width: 760px) 92vw, 360px" />
+              </div>
+              <div class="card-body">
+                <p class="card-meta">
+                  {project.year} · {project.team}
+                </p>
+                <h3>{project.name}</h3>
+                <p class="card-text">{project.summary}</p>
+                <p class="card-stack">{project.stack.join(" · ")}</p>
+                <a class="card-link" href={project.source}>
+                  Source on GitHub <span aria-hidden="true">↗</span>
+                  <span class="visually-hidden">for {project.name}</span>
+                </a>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="section about" aria-labelledby="about-title">
+    <div class="wrap about-grid">
+      <figure class="portrait">
+        <Image src={headshot} alt={`Portrait of ${PROFILE.name}`} widths={[280, 346]} sizes="280px" />
+      </figure>
+
+      <div class="about-copy">
+        <p class="eyebrow">About</p>
+        <h2 id="about-title">Hi, I'm Nick.</h2>
+        <div class="bio">
+          <p>
+            I'm a full-stack developer who loves the stretch between a rough idea and something people actually use. Programming is
+            where my problem-solving and my creative side meet, and I'm happiest learning whatever a project needs next.
+          </p>
+          <p>
+            On Hanzi Rivals that meant game design, a Node server and SQLite schema, a React client, a Capacitor iPhone app with a
+            Swift iMessage extension, 16×16 pixel fighters, and a guzheng soundtrack synthesized in the browser. Chinese has been a
+            thread through my work: my first app, Hanzi U, was a character trainer too.
+          </p>
+        </div>
+
+        <div class="toolbox">
+          <h3>Toolbox</h3>
+          <dl>
+            {
+              TOOLBOX.map(({ group, items }) => (
+                <div>
+                  <dt>{group}</dt>
+                  <dd>{items.join(", ")}</dd>
+                </div>
+              ))
+            }
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="section contact" aria-labelledby="contact-title">
+    <div class="wrap contact-inner">
+      <p class="eyebrow">Contact</p>
+      <h2 id="contact-title">Have something in mind? <em>Let's talk.</em></h2>
+      <p class="lead">Whether it's a role, a project or a question about Hanzi Rivals, email is the quickest way to reach me.</p>
+      <a class="email" href={`mailto:${PROFILE.email}`}>
+        <span>{PROFILE.email}</span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+      <ul class="socials">
+        <li><a href={PROFILE.github} rel="me">GitHub <span aria-hidden="true">↗</span></a></li>
+        <li><a href={PROFILE.linkedin} rel="me">LinkedIn <span aria-hidden="true">↗</span></a></li>
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* ---------- Hero ---------- */
+
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.9fr);
+    align-items: center;
+    gap: clamp(2.5rem, 6vw, 5rem);
+    padding-block: clamp(3.5rem, 9vw, 7.5rem) clamp(4rem, 9vw, 7rem);
+  }
+
+  .hero-copy {
+    display: grid;
+    gap: 1.6rem;
+  }
+
+  h1 {
+    font-size: clamp(3rem, 7.6vw, 6.4rem);
+    line-height: 0.96;
+  }
+
+  h1 em,
+  .contact h2 em {
+    color: var(--seal);
+  }
+
+  .hero .lead {
+    max-width: 36rem;
+  }
+
+  .lead a {
+    color: var(--ink);
+    text-decoration-color: var(--seal);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+  }
+
+  .now {
+    display: grid;
+    gap: 0.9rem;
+    padding: 0.9rem 0.9rem 1rem;
+    border: 1px solid var(--line);
+    border-radius: calc(var(--radius) + 6px);
+    background: var(--card);
+    box-shadow: var(--shadow);
+    text-decoration: none;
+    rotate: 1.5deg;
+    transition:
+      rotate 300ms cubic-bezier(0.2, 0.7, 0.2, 1),
+      transform 300ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .now:hover {
+    rotate: 0deg;
+    transform: translateY(-3px);
+  }
+
+  .now img {
+    width: 100%;
+    border-radius: var(--radius);
+  }
+
+  .now-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .pulse {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: #2a8a66;
+    box-shadow: 0 0 0 0 rgb(42 138 102 / 50%);
+    animation: pulse 2.4s ease-out infinite;
+  }
+
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgb(42 138 102 / 45%);
+    }
+    70%,
+    100% {
+      box-shadow: 0 0 0 8px rgb(42 138 102 / 0%);
+    }
+  }
+
+  .now-foot {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-inline: 0.25rem;
+    color: var(--ink-2);
+    font-size: 0.925rem;
+    line-height: 1.4;
+  }
+
+  .now-foot b {
+    color: var(--ink);
+    font-size: 1.05rem;
+  }
+
+  .now-foot .arrow-out {
+    font-size: 1.25rem;
+    color: var(--seal);
+    transition: transform 200ms ease;
+  }
+
+  .now:hover .arrow-out {
+    transform: translate(2px, -2px);
+  }
+
+  /* ---------- Featured band ---------- */
+
+  .feature-band {
+    overflow: hidden;
+  }
+
+  .feature {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(3rem, 7vw, 6rem);
+  }
+
+  .feature-copy {
+    display: grid;
+    gap: 1.6rem;
+  }
+
+  .feature h2 {
+    font-size: clamp(3rem, 6.5vw, 5.25rem);
+  }
+
+  .feature h2 .hz {
+    font-size: 0.55em;
+    color: var(--seal);
+    vertical-align: 0.35em;
+    margin-left: 0.15em;
+  }
+
+  .highlights {
+    display: grid;
+    gap: 0.85rem;
+    padding: 1.4rem 0 0;
+    border-top: 1px solid var(--line);
+    list-style: none;
+    color: var(--ink-2);
+  }
+
+  .highlights li {
+    position: relative;
+    padding-left: 1.4rem;
+  }
+
+  .highlights li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.62em;
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 2px;
+    background: var(--seal);
+    rotate: 45deg;
+  }
+
+  .highlights b {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  .feature .chips li {
+    background: transparent;
+  }
+
+  /* ---------- Earlier work ---------- */
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1rem, 2.5vw, 1.75rem);
+    padding: 0;
+    list-style: none;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--line);
+    border-radius: calc(var(--radius) + 4px);
+    background: var(--card);
+    overflow: hidden;
+    transition:
+      transform 220ms ease,
+      box-shadow 220ms ease;
+  }
+
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
+  }
+
+  .card-img {
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    border-bottom: 1px solid var(--line);
+    background: var(--paper-2);
+  }
+
+  .card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  .card-body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: 1.25rem 1.35rem 1.4rem;
+  }
+
+  .card-meta,
+  .card-stack {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  .card h3 {
+    font-family: var(--serif);
+    font-size: 1.85rem;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+
+  .card-text {
+    color: var(--ink-2);
+    font-size: 0.975rem;
+  }
+
+  .card-stack {
+    margin-top: auto;
+    padding-top: 0.5rem;
+  }
+
+  .card-link {
+    align-self: flex-start;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration-color: var(--line-strong);
+    text-underline-offset: 4px;
+  }
+
+  .card-link:hover {
+    color: var(--seal);
+    text-decoration-color: currentColor;
+  }
+
+  /* ---------- About ---------- */
+
+  .about {
+    background: var(--paper-2);
+    border-block: 1px solid var(--line);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
+    gap: clamp(2.5rem, 7vw, 6rem);
+    align-items: start;
+  }
+
+  .portrait {
+    position: relative;
+    max-width: 280px;
+    margin-top: 0.5rem;
+  }
+
+  .portrait::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    translate: 12px 12px;
+    border-radius: var(--radius);
+    background: var(--seal);
+  }
+
+  .portrait img {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: var(--radius);
+  }
+
+  .about-copy {
+    display: grid;
+    gap: 1.5rem;
+    max-width: 44rem;
+  }
+
+  .about h2 {
+    font-size: clamp(2.5rem, 5.5vw, 4rem);
+  }
+
+  .bio {
+    display: grid;
+    gap: 1rem;
+    color: var(--ink-2);
+    font-size: 1.1rem;
+  }
+
+  .toolbox {
+    display: grid;
+    gap: 1rem;
+    margin-top: 0.75rem;
+    padding-top: 1.75rem;
+    border-top: 1px solid var(--line-strong);
+  }
+
+  .toolbox h3 {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .toolbox dl {
+    display: grid;
+    gap: 0.7rem;
+    margin: 0;
+  }
+
+  .toolbox dl > div {
+    display: grid;
+    grid-template-columns: 7.5rem minmax(0, 1fr);
+    gap: 1rem;
+  }
+
+  .toolbox dt {
+    font-weight: 600;
+  }
+
+  .toolbox dd {
+    margin: 0;
+    color: var(--ink-2);
+  }
+
+  /* ---------- Contact ---------- */
+
+  .contact-inner {
+    display: grid;
+    justify-items: start;
+    gap: 1.5rem;
+  }
+
+  .contact h2 {
+    font-size: clamp(2.75rem, 7vw, 5.5rem);
+    max-width: 14ch;
+  }
+
+  .contact .lead {
+    max-width: 34rem;
+  }
+
+  .email {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 2px solid var(--seal);
+    font-family: var(--serif);
+    font-size: clamp(1.6rem, 4.2vw, 2.75rem);
+    line-height: 1.15;
+    text-decoration: none;
+    overflow-wrap: anywhere;
+  }
+
+  .email .arrow {
+    color: var(--seal);
+    transition: transform 200ms ease;
+  }
+
+  .email:hover .arrow {
+    transform: translateX(4px);
+  }
+
+  .socials {
+    display: flex;
+    gap: 1.5rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .socials a {
+    color: var(--ink-2);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .socials a:hover {
+    color: var(--seal);
+  }
+
+  /* ---------- Responsive ---------- */
+
+  @media (max-width: 960px) {
+    .cards {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 860px) {
+    .hero,
+    .feature {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .now {
+      max-width: 420px;
+      rotate: 0deg;
+    }
+
+    .feature-art {
+      order: -1;
+      max-width: 460px;
+      width: 100%;
+      margin-inline: auto;
+    }
+
+    .about-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .portrait {
+      max-width: 200px;
+    }
+  }
+
+  @media (max-width: 620px) {
+    .cards {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .toolbox dl > div {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.1rem;
+    }
+  }
+</style>

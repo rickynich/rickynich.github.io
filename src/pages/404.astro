@@ -1,0 +1,42 @@
+---
+import Base from "../layouts/Base.astro";
+import { PROFILE } from "../data/site";
+---
+
+<Base title={`Page not found · ${PROFILE.name}`} description="This page doesn't exist.">
+  <section class="wrap lost">
+    <p class="code" aria-hidden="true">404</p>
+    <h1>This page wandered off.</h1>
+    <p class="lead">The link may be old, since this site was rebuilt in 2026. Everything worth seeing starts from the home page.</p>
+    <div class="btn-row">
+      <a class="btn btn-seal" href="/">Back to the home page</a>
+      <a class="btn btn-quiet" href="/work/hanzi-rivals/">See Hanzi Rivals</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .lost {
+    display: grid;
+    justify-items: start;
+    gap: 1.5rem;
+    min-height: 62vh;
+    align-content: center;
+    padding-block: 5rem;
+  }
+
+  .code {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    color: var(--seal);
+  }
+
+  h1 {
+    font-size: clamp(2.75rem, 7vw, 5.25rem);
+  }
+
+  .lead {
+    max-width: 34rem;
+  }
+</style>
