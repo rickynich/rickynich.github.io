@@ -13,7 +13,7 @@ export const PROFILE = {
   github: "https://github.com/rickynich",
   linkedin: "https://www.linkedin.com/in/nicholas-richard-77a9a066/",
   description:
-    "Nick Richard is a full-stack developer who designs, builds and ships whole products, from the server to the iPhone app. Currently building Hanzi Rivals, a Chinese vocab game you play with friends.",
+    "Nick Richard is a full-stack developer who turns rough ideas into things people actually use. Currently building Hanzi Rivals, a Chinese vocab game you play with friends.",
 } as const;
 
 export const HANZI_RIVALS = {
